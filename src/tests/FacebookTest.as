@@ -8,7 +8,7 @@ package tests
 		[Test]
 		public function testFacebook():void{
 			//Test unit tests
-			Assert.assertEquals(true, true);
+			Assert.fail("Test FlexUnit autofail");
 		}
 	}
 }

@@ -149,7 +149,6 @@ package
 				{
 					method: 'stream.publish',
 					name: "Paint, Your Face!",
-					//link: "http://www.codeanginamo.com/paintapp/"+_facebookSession.uid+"/sketch.jpg",
 					link: "http://apps.facebook.com/paintmomukhamo/launch.php?uid="+_facebookSession.uid, // canvas page ng game.					
 					picture: "http://www.codeanginamo.com/paintapp/"+_facebookSession.uid+"/sketch.jpg",
 					caption: "Look at this drawing I made and paint over it. It is the boringest facebook app ever.",
