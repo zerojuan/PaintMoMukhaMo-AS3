@@ -69,4 +69,7 @@
 			<report format="frames" todir="${TESTS_OUTPUT}/html" />
 		</junitreport>
 	</target>
+	
+	<target name="ccrun" depends="build, runtests">
+	</target>
 </project>
