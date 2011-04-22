@@ -1,0 +1,12 @@
+#build properties for building the PaintApp project
+FLEX_HOME = D:/flex4
+BUILD_FOLDER = ${basedir}/build
+LIBS_FOLDER = ${basedir}/libs
+SRC_FOLDER = ${basedir}/src
+CONFIG_FOLDER = ${basedir}/config
+FLEX_TASKS = ${FLEX_HOME}/ant/lib
+
+TESTS_OUTPUT = ${BUILD_FOLDER}/tests
+
+MAIN_CLASS = PaintApp.as
+SWF_OUTPUT = PaintApp.swf

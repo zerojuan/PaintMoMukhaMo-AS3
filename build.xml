@@ -1,0 +1,72 @@
+<project name="PaintApp" basedir="." default="build">
+	<target name="init">
+		<property file="build.properties"/>
+		
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_TASKS}"/>
+		<taskdef resource="flexUnitTasks.tasks">
+			<classpath>
+				<fileset dir="${LIBS_FOLDER}">
+					<include name="flexUnitTasks*.jar" />
+				</fileset>
+			</classpath>
+		</taskdef>
+		
+		<mkdir dir="${TESTS_OUTPUT}"/>
+	</target>
+	
+	<target name="build" depends="init">
+		<mkdir dir="${BUILD_FOLDER}"/>
+		
+		<mxmlc file="${SRC_FOLDER}/${MAIN_CLASS}"
+			output="${BUILD_FOLDER}/${SWF_OUTPUT}">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${FLEX_HOME}/frameworks"/>
+			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+				<include name="libs"/>
+				<include name="../bundles/{locale}"/>
+			</compiler.library-path>
+			<compiler.library-path dir="${LIBS_FOLDER}" append="true">
+				<include name="MinimalComps_0_9_8.swc"/>
+			</compiler.library-path>
+			<default-size width="500" height="600" />
+		</mxmlc>
+	</target>
+	
+	<target name="compileunittests" depends="init">
+		<mxmlc file="${basedir}/src/tests/TestRunner.as"
+			output="${BUILD_FOLDER}/TestRunner.swf">
+			<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+			<source-path path-element="${FLEX_HOME}/frameworks"/>
+			<source-path path-element="${SRC_FOLDER}"/>
+			<compiler.library-path dir="${FLEX_HOME}/frameworks" append="true">
+				<include name="libs"/>
+				<include name="../bundles/{locale}"/>
+			</compiler.library-path>
+			<compiler.library-path dir="${basedir}" append="true">
+				<include name="libs"/>
+			</compiler.library-path>
+			<compiler.verbose-stacktraces>true</compiler.verbose-stacktraces>
+            <compiler.headless-server>true</compiler.headless-server>
+		</mxmlc>
+	</target>
+	
+	<target name="runtests" depends="compileunittests">
+		<!-- Execute FlexUnit tests and publish reports -->
+		<flexunit 
+			workingDir="${BUILD_FOLDER}"
+			swf="${BUILD_FOLDER}/TestRunner.swf"
+		    toDir="${TESTS_OUTPUT}" 
+			haltonfailure="false" 
+			verbose="false"
+			localTrusted="true"	>
+	   </flexunit>
+
+		<!-- Generate readable JUnit-style reports -->
+		<junitreport todir="${TESTS_OUTPUT}">
+			<fileset dir="${TESTS_OUTPUT}">
+				<include name="TEST-*.xml" />
+			</fileset>
+			<report format="frames" todir="${TESTS_OUTPUT}/html" />
+		</junitreport>
+	</target>
+</project>
