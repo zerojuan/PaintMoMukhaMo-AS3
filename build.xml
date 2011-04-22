@@ -12,6 +12,7 @@
 		</taskdef>
 		
 		<mkdir dir="${TESTS_OUTPUT}"/>
+		<exec executable="git" dir="${basedir}"><arg line="pull"></arg></exec>
 	</target>
 	
 	<target name="build" depends="init">
@@ -69,6 +70,7 @@
 			<report format="frames" todir="${TESTS_OUTPUT}/html" />
 		</junitreport>
 	</target>
+	
 	
 	<target name="ccrun" depends="build, runtests">
 	</target>
